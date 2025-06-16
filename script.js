@@ -5,11 +5,7 @@ function addTask() {
     const taskInput = document.getElementById("task");
     const taskText = taskInput.value.trim();
 
-    if (taskText === "") {
-        alert("Please enter a task.");
-        return;
-    }
-
+    if (taskText === "") return;
     const tasks = getTasks();
     tasks.push(taskText);
     saveTasks(tasks);
@@ -38,6 +34,15 @@ function renderTasks() {
     taskList.innerHTML = "";
 
     const tasks = getTasks();
+
+    if (tasks.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No tasks currently.";
+        emptyMessage.classList.add("empty-message");
+        taskList.appendChild(emptyMessage);
+        return;
+    }
+
     tasks.forEach((task, index) => {
         const li = document.createElement("li");
         li.textContent = task;
@@ -54,3 +59,4 @@ function renderTasks() {
         taskList.appendChild(li);
     });
 }
+
